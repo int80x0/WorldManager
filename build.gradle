@@ -5,7 +5,7 @@ plugins {
 
 
 group = 'fr.Mathildeuh'
-version = '4.0.0'
+version = '4.1.0'
 
 def mcVersion = providers.gradleProperty('paperApiVersion').getOrElse('1.20.1-R0.1-SNAPSHOT')
 
