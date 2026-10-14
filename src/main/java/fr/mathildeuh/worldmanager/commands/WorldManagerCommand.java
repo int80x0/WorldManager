@@ -221,7 +221,7 @@ public class WorldManagerCommand implements CommandExecutor, TabCompleter {
                     break;
                 case "create":
                 case "c":
-                    completions.addAll(List.of("normal", "flat", "amplified", "large_biomes", "the_end", "the_nether"));
+                    completions.addAll(List.of("normal", "flat", "amplified", "large_biomes", "the_end", "the_nether", "empty"));
                     break;
                 case "teleport":
                 case "tp":
