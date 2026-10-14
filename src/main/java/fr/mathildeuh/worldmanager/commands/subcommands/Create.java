@@ -26,8 +26,14 @@ public class Create {
     }
 
     public void run(String name, @Nullable String type, @Nullable String seed, @Nullable String generator) {
-        long seedValue;
+        // Allow /wm create <name> <type> empty without requiring a seed placeholder.
+        if ("empty".equalsIgnoreCase(seed) && (generator == null || generator.isEmpty())) {
+            seed = null;
+            generator = "Empty";
+        }
+        if ("empty".equalsIgnoreCase(generator)) generator = "Empty";
 
+        long seedValue;
         try {
             seedValue = seed == null || seed.isEmpty() ? new Random().nextLong() : Long.parseLong(seed);
         } catch (NumberFormatException e) {

@@ -84,10 +84,12 @@ class WorldLifecycleTest {
         assertSame(failure, assertThrows(CompletionException.class, completion::join).getCause());
     }
 
-    @Test
-    void emptyMarkerLoadsBuiltInGeneratorWithoutLookingUpAPlugin() {
-        WorldCreator creator = new WorldCreator(org.bukkit.NamespacedKey.minecraft("empty-test"));
+    @ParameterizedTest
+    @EnumSource(value = World.Environment.class, names = {"NORMAL", "NETHER", "THE_END"})
+    void emptyMarkerLoadsBuiltInGeneratorAndPreservesDimension(World.Environment environment) {
+        WorldCreator creator = new WorldCreator(org.bukkit.NamespacedKey.minecraft("empty-test")).environment(environment);
         WorldLifecycle.applyGenerator(creator, "eMpTy");
         assertInstanceOf(EmptyWorldGenerator.class, creator.generator());
+        assertEquals(environment, creator.environment());
     }
 }

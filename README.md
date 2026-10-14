@@ -45,7 +45,9 @@ All commands are under `/worldmanager` (alias `/wm`).
 |---|---|
 | `/wm` or `/wm gui` | Open the main menu |
 | `/wm create <name> [type] [seed] [generator]` | Create a new world |
-| `/wm create <name> empty [seed]` | Create an empty world with the built-in generator |
+| `/wm create <name> empty [seed]` | Create an empty overworld with the built-in generator |
+| `/wm create <name> <type> empty` | Create an empty world in the selected dimension, with a random seed |
+| `/wm create <name> <type> <seed> empty` | Create an empty world in the selected dimension, with a specific seed |
 | `/wm load <name> [dimension] [generator]` | Load an existing world folder |
 | `/wm unload <name>` | Unload a world |
 | `/wm delete <name>` | Permanently delete a world |
@@ -55,9 +57,11 @@ All commands are under `/worldmanager` (alias `/wm`).
 | `/wm pregen <start\|stop\|pause\|resume> <world> [center:x,z] [radius:n]` | Control world pre-generation |
 | `/wm list` | List currently loaded worlds |
 
-The `empty` type uses the same generator as the GUI's empty-world toggle. For example,
-`/wm create lobby empty` or `/wm create lobby empty 12345`. It is saved in the world
-configuration and reused when loading the world after a restart.
+The `empty` option uses the same generator as the GUI's empty-world toggle. Use
+`/wm create lobby empty` for an empty overworld, `/wm create end_lobby the_end empty`
+for an empty End, or `/wm create nether_lobby nether 12345 empty` for an empty Nether
+with a specific seed. In the GUI, select the dimension and enable the empty-world toggle.
+The dimension and generator are saved in the world configuration and reused after a restart.
 
 ## Permissions
 
@@ -84,7 +88,8 @@ older supported releases) and boot-tested against a real 1.20.1 server. Spigot/C
 and hasn't been reintroduced.
 
 Folia scheduler ownership is respected for chat-input callbacks, GUI animations, portal
-velocity updates, and world-operation teleports. World creation/loading uses the global scheduler.
+velocity updates, and world-operation teleports. World creation/loading, game-rule mutations,
+and world-flag changes use the global scheduler; their GUI refreshes return to the player scheduler.
 Unloading selects the server's asynchronous unload API when available and otherwise uses the
 Bukkit API. Delete and restore only touch world files after a successful unload; rejected or
 unsupported operations abort safely. Runtime world creation/unloading still requires support

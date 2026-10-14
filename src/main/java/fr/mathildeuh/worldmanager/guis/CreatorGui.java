@@ -175,8 +175,8 @@ public final class CreatorGui implements WMGui {
         }
 
         player.closeInventory();
-        new Create(player).execute(name, empty ? "empty" : type,
-                seed.isEmpty() ? null : seed, empty || generator.isEmpty() ? null : generator);
+        new Create(player).execute(name, type, seed.isEmpty() ? null : seed,
+                empty ? "Empty" : generator.isEmpty() ? null : generator);
     }
 
     private static Material iconForType(String type) {
